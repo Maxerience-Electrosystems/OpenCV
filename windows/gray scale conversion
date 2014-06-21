@@ -1,0 +1,31 @@
+
+
+#include <opencv2/highgui/highgui.hpp>
+#include<opencv2\imgproc\imgproc.hpp>
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+int main()
+{
+	Mat image = imread("c:\\funny.jpg");
+
+	
+	Mat gray;
+	cvtColor(image, gray, CV_BGR2GRAY);
+
+
+
+
+
+
+	//if (im.empty())
+	//{
+	//	cout << "Cannot load image!" << endl;
+	//	return -1;
+	//}
+	imshow("gray",gray);
+	imshow("image", image);
+	waitKey(0);
+}
