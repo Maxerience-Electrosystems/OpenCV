@@ -135,5 +135,4 @@ void detect_and_draw(IplImage* img)
 	// Release the temp image created.
 	cvReleaseImage(&temp);
 }
-    return 0;
-}
+    
