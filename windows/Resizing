@@ -1,0 +1,40 @@
+#include <iostream>
+#include <opencv2/opencv.hpp>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <math.h>
+#include <float.h>
+#include <limits.h>
+#include <time.h>
+#include <ctype.h>
+
+#include<opencv2/imgproc/imgproc.hpp>
+
+using namespace std;
+using namespace cv;
+
+int main()
+{
+	int i=1;
+	Size size(92,112);
+    Mat dst;
+    char b1[200];
+    char b2[200];
+
+    while(1)
+{
+    sprintf(b1, "src1/%d.jpg",i);
+    sprintf(b2, "crop%d.jpg",i);
+    Mat src1 = imread(b1,1);//src image
+    cout << "check" << endl;
+    imshow("src",src1);
+
+    cv::resize(src1,dst,size);//resize image
+    imwrite(b2,dst);
+    i++;
+    //waitKey(0);
+}
+return 0;
+}
