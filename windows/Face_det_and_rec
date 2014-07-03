@@ -11,35 +11,28 @@
 #include <time.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <iostream>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <math.h>
 #include <vector>
+
+#include "opencv2/core/core.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/contrib/contrib.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+
 #include <iostream>
-#include <opencv2/opencv.hpp>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <float.h>
-#include <limits.h>
-#include <time.h>
-#include <ctype.h>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 using namespace cv;
-
 
 // Create a string that contains the exact cascade name
 const char* cascade_name =
 "haarcascade_frontalface_alt.xml";
 /* "haarcascade_profileface.xml";*/
 
-
 // Function prototype for detecting and drawing an object from an image
 void detect_and_draw(IplImage* image);
-
 
 
 // Main function, defines the entry point for the program.
@@ -79,13 +72,15 @@ cvReleaseImage(&img);
 // Destroy the window previously created with filename: "result"
 cvDestroyWindow("result");
 
-// return 0 to indicate successfull execution of the program
+// return 0 to indicate successful execution of the program
 return 0;
 }
 
 // Function to detect and draw any faces that is present in an image
 void detect_and_draw(IplImage* img)
 {
+
+Size size(92,112);
 CvRect box[10];
 // Create memory for calculations
 static CvMemStorage* storage = 0;
@@ -134,17 +129,9 @@ for (i = 0; i < (faces ? faces->total : 0); i++)
 CvRect* r = (CvRect*)cvGetSeqElem(faces, i);
 box[i]=*r;
 
-// Find the dimensions of the face,and scale it if necessary
-pt1.x = r->x*scale;
-pt2.x = (r->x + r->width)*scale;
-pt1.y = r->y*scale;
-pt2.y = (r->y + r->height)*scale;
-
-// Draw the rectangle in the input image
-//cvRectangle(img, pt1, pt2, CV_RGB(255, 0, 0), 3, 8, 0);
 }
 }
-cvShowImage("result", img);
+//cvShowImage("result", img);
 cv::Mat new_img = cvarrToMat(img);
 
 for(int j=0;j<faces1->total;j++)
@@ -153,11 +140,69 @@ char b[100];
 Mat croppedFaceImage = new_img(box[j]).clone();
 
 cvtColor(croppedFaceImage,croppedFaceImage,CV_BGR2GRAY);
-imshow("show",croppedFaceImage);
+//imshow("show",croppedFaceImage);
 sprintf(b,"test/crop%d.pgm",j);
+
+cv::resize(croppedFaceImage,croppedFaceImage,size);
+
 imwrite(b,croppedFaceImage);
 
-// Show the image in the window named "result"
+
+Ptr<FaceRecognizer> tester = createEigenFaceRecognizer();
+	 const char* file1="model_xml.xml";
+	 tester->load(file1);
+
+	 Mat testSample = imread(b,0);
+
+	 //the second argument '0' in imread function is a must
+	 //because the '0' flag converts it into grayscale
+	 //int testLabel = 40;
+
+     int predictedLabel = tester->predict(testSample);
+
+     pt1.x = box[j].x*scale;
+     pt2.x = (box[j].x + box[j].width)*scale;
+     pt1.y = box[j].y*scale;
+     pt2.y = (box[j].y + box[j].height)*scale;
+    //
+    // To get the confidence of a prediction call the model with:
+    //
+    //      int predictedLabel = -1;
+    //      double confidence = 0.0;
+    //      model->predict(testSample, predictedLabel, confidence);
+     char* name;
+     switch(predictedLabel)
+     {
+     case 0:
+    	 name="Devanjan\0";
+    	 break;
+     case 1:
+         name="Gautam\0";
+         	 break;
+     case 2:
+         name="Gourav\0";
+         	 break;
+     case 3:
+         name="Joyal\0";
+         	 break;
+     case 4:
+         name="Pradeep\0";
+         	 break;
+     }
+
+    if(name=="Unknown\0")
+    	cvRectangle(img, pt1, pt2, CV_RGB(255, 0, 0), 3, 8, 0);
+    else
+        cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
+
+    cv::Mat new_img = cvarrToMat(img);
+
+    if(name=="Unknown\0")
+    putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(255,0,0),1,8,false);
+    else
+    putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(0,255,0),1,8,false);
+
+    imshow("result",new_img);
 
 }
 // Release the temp image created.
