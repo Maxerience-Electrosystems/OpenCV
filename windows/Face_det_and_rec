@@ -152,7 +152,7 @@ for(int j=0;j<faces1->total;j++)
 char b[100];
 Mat croppedFaceImage = new_img(box[j]).clone();
 
-//cvtColor(croppedFaceImage,croppedFaceImage,CV_BGR2GRAY);
+cvtColor(croppedFaceImage,croppedFaceImage,CV_BGR2GRAY);
 imshow("show",croppedFaceImage);
 sprintf(b,"test/crop%d.pgm",j);
 imwrite(b,croppedFaceImage);
