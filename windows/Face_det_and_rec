@@ -79,7 +79,6 @@ return 0;
 // Function to detect and draw any faces that is present in an image
 void detect_and_draw(IplImage* img)
 {
-
 Size size(92,112);
 CvRect box[10];
 // Create memory for calculations
@@ -117,7 +116,6 @@ CvSeq* faces1;
 // Find whether the cascade is loaded, to find the faces. If yes, then:
 if (cascade)
 {
-
 // There can be more than one face in an image. So create a growable sequence of faces.
 // Detect the objects and store them in the sequence
 CvSeq* faces = cvHaarDetectObjects(img, cascade, storage,1.1, 2, CV_HAAR_DO_CANNY_PRUNING,cvSize(40, 40));
@@ -133,7 +131,7 @@ box[i]=*r;
 }
 //cvShowImage("result", img);
 cv::Mat new_img = cvarrToMat(img);
-
+//imshow("result",new_img);
 for(int j=0;j<faces1->total;j++)
 {
 char b[100];
@@ -146,7 +144,6 @@ sprintf(b,"test/crop%d.pgm",j);
 cv::resize(croppedFaceImage,croppedFaceImage,size);
 
 imwrite(b,croppedFaceImage);
-
 
 Ptr<FaceRecognizer> tester = createEigenFaceRecognizer();
 	 const char* file1="model_xml.xml";
@@ -174,33 +171,37 @@ Ptr<FaceRecognizer> tester = createEigenFaceRecognizer();
      switch(predictedLabel)
      {
      case 0:
-    	 name="Devanjan\0";
-    	 break;
+    	 {name="Devanjan\0";
+    	 cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
+    	 break;}
      case 1:
-         name="Gautam\0";
-         	 break;
+         {name="Gautam\0";
+         cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
+         	 break;}
      case 2:
-         name="Gourav\0";
-         	 break;
+         {name="Gourav\0";
+         cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
+         	 break;}
      case 3:
-         name="Joyal\0";
-         	 break;
+         {name="Joyal\0";
+         cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
+         	 break;}
      case 4:
-         name="Pradeep\0";
-         	 break;
+         {name="Pradeep\0";
+         cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
+         	 break;}
+     default:
+    	 {name="Unknown\0";
+    	 cvRectangle(img, pt1, pt2, CV_RGB(255, 0, 0), 3, 8, 0);
+    	     break;}
      }
-
-    if(name=="Unknown\0")
-    	cvRectangle(img, pt1, pt2, CV_RGB(255, 0, 0), 3, 8, 0);
-    else
-        cvRectangle(img, pt1, pt2, CV_RGB(0, 255, 0), 3, 8, 0);
 
     cv::Mat new_img = cvarrToMat(img);
 
     if(name=="Unknown\0")
-    putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(255,0,0),1,8,false);
+    	 putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(0,0,255),1,8,false);
     else
-    putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(0,255,0),1,8,false);
+    	 putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(0,255,0),1,8,false);
 
     imshow("result",new_img);
 
