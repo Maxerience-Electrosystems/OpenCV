@@ -15,21 +15,23 @@
 using namespace std;
 using namespace cv;
 
+//After execution, you will get an error, but that can be ignored.
+//That happens because the program cant read any more files from the folder specified
+//The images would have been resized. Go and check in the folder.
+
 int main()
 {
-	int i=1;
-	Size size(92,112);
+int i=1;
+Size size(92,112);
     Mat dst;
     char b1[200];
     char b2[200];
 
     while(1)
 {
-    sprintf(b1, "src1/%d.jpg",i);
-    sprintf(b2, "crop%d.jpg",i);
+    sprintf(b1, "s5/%d.pgm",i);
+    sprintf(b2, "s5/%d.pgm",i);
     Mat src1 = imread(b1,1);//src image
-    cout << "check" << endl;
-    imshow("src",src1);
 
     cv::resize(src1,dst,size);//resize image
     imwrite(b2,dst);
