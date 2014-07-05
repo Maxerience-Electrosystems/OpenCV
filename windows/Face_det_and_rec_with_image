@@ -204,9 +204,9 @@ Ptr<FaceRecognizer> tester = createEigenFaceRecognizer();
     else
     	 putText(new_img,name,cvPoint(pt1.x,pt1.y-10),FONT_HERSHEY_COMPLEX_SMALL,0.8,cvScalar(0,255,0),1,8,false);
 
-    imshow("result",new_img);
-waitKey(0);
 }
+ imshow("result",new_img);
+ waitKey(0);
 // Release the temp image created.
 cvReleaseImage(&temp);
 }
