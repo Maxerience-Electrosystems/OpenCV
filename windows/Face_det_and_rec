@@ -95,7 +95,11 @@ cvDestroyWindow("result");
 return 0;
 }
 
+//void filter(int label)
+//{
+//	int count=0;
 
+//}
 // Function to detect and draw any faces that is present in an image
 void detect_and_draw(IplImage* img)
 {
@@ -162,9 +166,14 @@ box[i]=*r;
 //cvShowImage("result", img);
 cv::Mat new_img = cvarrToMat(img);
 //imshow("result",new_img);
+char b[100];
+Ptr<FaceRecognizer> tester = createEigenFaceRecognizer();
+const char* file1="model_xml_10.xml";
+tester->load(file1);
+
 for(int j=0;j<faces1->total;j++)
 {
-char b[100];
+
 Mat croppedFaceImage = new_img(box[j]).clone();
 
 
@@ -177,11 +186,6 @@ cv::resize(croppedFaceImage,croppedFaceImage,size);
 
 
 imwrite(b,croppedFaceImage);
-
-
-Ptr<FaceRecognizer> tester = createEigenFaceRecognizer();
-const char* file1="model_xml.xml";
-tester->load(file1);
 
 
 Mat testSample = imread(b,0);
