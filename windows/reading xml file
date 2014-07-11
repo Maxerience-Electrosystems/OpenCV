@@ -11,7 +11,7 @@ int main()
 {
     std::cout<< endl << "Reading:" << endl;
     FileStorage fs;
-    fs.open("model_10.xml", FileStorage::READ);
+    fs.open("test.xml", FileStorage::READ);
 
     if (fs.isOpened())
     {
@@ -24,18 +24,164 @@ int main()
 
 
 
-        Mat eigenvalues;
+    Mat eigenvalues;
               fs["eigenvalues"] >>eigenvalues ;
               std::cout<< eigenvalues;
 
+    Mat s[50];
+    fs["s1_1"] >> s[0];
+    std::cout << s[0]<<endl;
+
+    fs["s1_2"] >> s[1];
+    std::cout << s[1]<<endl;
+
+    fs["s1_3"] >> s[2];
+    std::cout << s[2]<<endl;
+
+    fs["s1_4"] >> s[3];
+    std::cout << s[3]<<endl;
+
+    fs["s1_5"] >> s[4];
+    std::cout << s[4]<<endl;
+
+    fs["s1_6"] >> s[5];
+    std::cout << s[5]<<endl;
+
+    fs["s1_7"] >> s[6];
+    std::cout << s[6]<<endl;
+
+    fs["s1_8"] >> s[7];
+    std::cout << s[7]<<endl;
+
+    fs["s1_9"] >> s[8];
+    std::cout << s[8]<<endl;
+
+    fs["s1_10"] >> s[9];
+    std::cout << s[9]<<endl;
+
+    fs["s2_1"] >> s[10];
+    std::cout << s[10]<<endl;
+
+    fs["s2_2"] >> s[11];
+    std::cout << s[11]<<endl;
+
+    fs["s2_3"] >> s[12];
+    std::cout << s[12]<<endl;
+
+    fs["s2_4"] >> s[13];
+    std::cout << s[13]<<endl;
+
+    fs["s2_5"] >> s[14];
+    std::cout << s[14]<<endl;
+
+    fs["s2_6"] >> s[15];
+    std::cout << s[15]<<endl;
+
+    fs["s2_7"] >> s[16];
+    std::cout << s[16]<<endl;
+
+    fs["s2_8"] >> s[17];
+    std::cout << s[17]<<endl;
+
+    fs["s2_9"] >> s[18];
+    std::cout << s[18]<<endl;
+
+    fs["s2_10"] >> s[19];
+    std::cout << s[19]<<endl;
+
+    fs["s3_1"] >> s[20];
+    std::cout << s[20]<<endl;
+
+    fs["s3_2"] >> s[21];
+    std::cout << s[21]<<endl;
+
+    fs["s3_3"] >> s[22];
+    std::cout << s[22]<<endl;
+
+    fs["s3_4"] >> s[23];
+    std::cout << s[23]<<endl;
+
+    fs["s3_5"] >> s[24];
+    std::cout << s[24]<<endl;
+
+    fs["s3_6"] >> s[25];
+    std::cout << s[25]<<endl;
+
+    fs["s3_7"] >> s[26];
+    std::cout << s[26]<<endl;
+
+    fs["s3_8"] >> s[27];
+    std::cout << s[27]<<endl;
+
+    fs["s3_9"] >> s[28];
+    std::cout << s[28]<<endl;
+
+    fs["s3_10"] >> s[29];
+    std::cout << s[29]<<endl;
+
+    fs["s4_1"] >> s[30];
+    std::cout << s[30]<<endl;
+
+    fs["s4_2"] >> s[31];
+    std::cout << s[31]<<endl;
+
+    fs["s4_3"] >> s[32];
+    std::cout << s[32]<<endl;
+
+    fs["s4_4"] >> s[33];
+    std::cout << s[33]<<endl;
+
+    fs["s4_5"] >> s[34];
+    std::cout << s[34]<<endl;
+
+    fs["s4_6"] >> s[35];
+    std::cout << s[35]<<endl;
+
+    fs["s4_7"] >> s[36];
+    std::cout << s[36]<<endl;
+
+    fs["s4_8"] >> s[37];
+    std::cout << s[37]<<endl;
+
+    fs["s4_9"] >> s[38];
+    std::cout << s[38]<<endl;
+
+    fs["s4_10"] >> s[39];
+    std::cout << s[39]<<endl;
+
+    fs["s5_1"] >> s[40];
+    std::cout << s[40]<<endl;
+
+    fs["s5_2"] >> s[41];
+    std::cout << s[41]<<endl;
+
+    fs["s5_3"] >> s[42];
+    std::cout << s[42]<<endl;
+
+    fs["s5_4"] >> s[43];
+    std::cout << s[43]<<endl;
+
+    fs["s5_5"] >> s[44];
+    std::cout << s[44]<<endl;
+
+    fs["s5_6"] >> s[45];
+    std::cout << s[45]<<endl;
+
+    fs["s5_7"] >> s[46];
+    std::cout << s[46]<<endl;
+
+    fs["s5_8"] >> s[47];
+    std::cout << s[47]<<endl;
+
+    fs["s5_9"] >> s[48];
+    std::cout << s[48]<<endl;
+
+    fs["s5_10"] >> s[49];
+    std::cout << s[49]<<endl;
 
 
-              Mat eigenvectors ;
-                           fs["eigenvectors"] >>eigenvectors;
-                           std::cout<<eigenvectors ;
-
-                          
-       // fs.release();
+cout<<"suc"<<endl;
+         // fs.release();
         return (0);
 
 
