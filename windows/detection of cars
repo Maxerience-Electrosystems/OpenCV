@@ -111,7 +111,7 @@ void detect_and_draw(IplImage* img)
 			1.1, 2, CV_HAAR_DO_CANNY_PRUNING,
 			cvSize(40, 40));
 
-		// Loop the number of faces found.
+		// Loop the number of faces found. 
 		for (i = 0; i < (faces ? faces->total : 0); i++)
 		{
 			// Create a new rectangle for drawing the face
