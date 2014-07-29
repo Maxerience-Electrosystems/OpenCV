@@ -54,7 +54,7 @@ int main()
     // cv::Algorithm, you can query the data.
     //
     // First we'll use it to set the threshold of the FaceRecognizer
-    // to 0.0 without retraining the model. This can be useful if
+    // to 0.0 without retraining the model. This can be useful if 
     // you are evaluating the model:
     //
     tester->set("threshold", 0.0);
