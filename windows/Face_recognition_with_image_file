@@ -81,7 +81,7 @@ int main(int argc, const char *argv[]) {
     int testLabel = labels[labels.size() - 1];
     images.pop_back();
     labels.pop_back();
-    // The following lines create an Eigenfaces model for
+    // The following lines create an Eigenfaces model for 
     // face recognition and train it with the images and
     // labels read from the given CSV file.
     // This here is a full PCA, if you just want to keep
