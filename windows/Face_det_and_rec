@@ -163,7 +163,7 @@ box[i]=*r;
 
 }
 }
-//cvShowImage("result", img);
+//cvShowImage("result", img); 
 cv::Mat new_img = cvarrToMat(img);
 //imshow("result",new_img);
 char b[100];
