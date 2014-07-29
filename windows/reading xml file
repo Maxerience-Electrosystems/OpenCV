@@ -87,7 +87,7 @@ int main()
     std::cout << s[18]<<endl;
 
     fs["s2_10"] >> s[19];
-    std::cout << s[19]<<endl;
+    std::cout << s[19]<<endl; 
 
     fs["s3_1"] >> s[20];
     std::cout << s[20]<<endl;
