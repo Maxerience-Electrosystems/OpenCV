@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	CvCapture* capture = capture = cvCaptureFromCAM(0); // capture from video device (Macbook iSight)
 
 	// Create a sample image
-	IplImage *img;
+	IplImage *img; 
 	IplImage *newImg;
 
 	while (1) {
