@@ -1,4 +1,4 @@
-
+// Code for RGB to Gray scale conversion
 
 #include <opencv2/highgui/highgui.hpp>
 #include<opencv2\imgproc\imgproc.hpp>
@@ -9,23 +9,28 @@ using namespace std;
 
 int main()
 {
-	Mat image = imread("c:\\funny.jpg");
+	Mat image = cv::imread("c:\\funny.jpg");
 
-	
 	Mat gray;
-	cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, CV_BGR2GRAY);
 
-
-
-
-
-
-	//if (im.empty())
-	//{
-	//	cout << "Cannot load image!" << endl;
-	//	return -1;
-	//}
-	imshow("gray",gray);
-	imshow("image", image);
-	waitKey(0);
+	if (image.empty())
+	{
+		cout << "Cannot load image!" << endl;
+		return -1;
+	}
+	
+	namedWindow("image", CV_WINDOW_AUTOSIZE);
+	cv::imshow("image", image);
+	
+	namedWindow("gray", CV_WINDOW_AUTOSIZE);
+	cv::imshow("gray",gray);
+	
+	if(waitKey(0)==27)
+	{
+	cv::destroyWindow("image");
+	cv::destroyWindow("gray");
+	}
+	
+   	return 0;
 }
