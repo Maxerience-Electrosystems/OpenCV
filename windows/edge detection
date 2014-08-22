@@ -1,25 +1,93 @@
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+#include <vector>
+#include <math.h>
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
+using namespace std;
 using namespace cv;
 
-int main()
+Mat image, gryimage;
+
+Mat grad;
+Mat grad_x, grad_y;
+Mat abs_grad_x, abs_grad_y;
+
+Mat edges, detected_edges;
+
+int scale = 1;
+int delta = 0;
+int ddepth = CV_16S;
+
+int kernel_size = 3;
+
+void Sobel(int, void*)
 {
-	Mat img;
+	cv::GaussianBlur(gryimage, edges, Size(3,3),0,0, BORDER_DEFAULT );
+
+	cv::Sobel( edges, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
+	convertScaleAbs( grad_x, abs_grad_x );
+
+	cv::Sobel( edges, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );
+	convertScaleAbs( grad_y, abs_grad_y );
+
+	cv::addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+
+	namedWindow("Sobel_Edge",CV_WINDOW_AUTOSIZE);
+	cv::imshow( "Sobel_Edge", grad );
+}
+
+void Canny(int, void*)
+{
+  cv::GaussianBlur(gryimage, detected_edges, Size(3,3),0,0, BORDER_DEFAULT );
+
+  Canny(detected_edges, detected_edges, 100, 255, kernel_size );
+
+  namedWindow("Canny_Edge",CV_WINDOW_AUTOSIZE);
+  imshow( "Canny_Edge", detected_edges );
+ }
+
+
+int main(int argc, char** argv)
+{
+	image= cv::imread("lena.jpeg", 1);
+	namedWindow("src",CV_WINDOW_AUTOSIZE);
+	cv::imshow("src", image);
+	
+/*	Mat img;
 	VideoCapture cap(0);
 
 	while (true)
 	{
 		cap >> img;
+		cv::cvtColor(img, gryimage, CV_BGR2GRAY);
+		namedWindow("grey",CV_WINDOW_AUTOSIZE);
+		cv::imshow("grey", gryimage);
 
-		Mat edges;
-		cvtColor(img, edges, CV_BGR2GRAY);
+		Sobel(0,0);
 
-		Canny(edges, edges, 30, 60);
-
-		imshow("window label", edges);
-		waitKey(1);
+		Canny(0,0);
 	}
+*/
 
-	return 0;
+	cv::cvtColor(image, gryimage, CV_BGR2GRAY);
+	namedWindow("grey",CV_WINDOW_AUTOSIZE);
+	cv::imshow("grey", gryimage);
+
+	Sobel(0,0);
+
+	Canny(0,0);
+
+	if(cv::waitKey(0)==27)
+	 {
+		cv::destroyWindow("src");
+		cv::destroyWindow("grey");
+		cv::destroyWindow("Sobel_Edge");
+		cv::destroyWindow("Canny_Edge");
+	 }
+ return 0;
 }
- 
